@@ -1,16 +1,24 @@
 import { GameState } from '../types';
+import { FaDeleteLeft } from 'react-icons/fa6';
+import { AiOutlineEnter } from 'react-icons/ai';
 
 interface KeyboardProps {
   gameState?: GameState;
-  onEnter: (key: string) => void;
+  onLetterEnter: (key: string) => void;
+  onLetterRemove: () => void;
+  onWordEnter: () => void;
 }
 
-function Keyboard({ gameState, onEnter }: KeyboardProps) {
-  const KEYS = [
-    // '<X>',
+function Keyboard({
+  gameState,
+  onLetterEnter,
+  onLetterRemove,
+  onWordEnter,
+}: KeyboardProps) {
+  const KEYS_1ST_ROW = [
     'Й',
     'Ц',
-    'у',
+    'У',
     'К',
     'Е',
     'Н',
@@ -20,6 +28,9 @@ function Keyboard({ gameState, onEnter }: KeyboardProps) {
     'З',
     'Х',
     'Ъ',
+  ];
+
+  const KEYS_2ND_ROW = [
     'Ф',
     'Ы',
     'В',
@@ -32,30 +43,57 @@ function Keyboard({ gameState, onEnter }: KeyboardProps) {
     'Ж',
     'Э',
     'Ё',
-    'Я',
-    'Ч',
-    'С',
-    'М',
-    'И',
-    'Т',
-    'Ь',
-    'Б',
-    'Ю',
-    // 'Ввод',
   ];
 
+  const KEYS_3RD_ROW = ['Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю'];
+
   return (
-    <div className="grid grid-cols-11 gap-2">
-      
-      {KEYS.map((key: string, index: number) => (
+    <div className="flex flex-col w-full max-w-[95%] sm:max-w-xl mx-auto gap-1">
+      <div className="flex gap-1">
+        {KEYS_1ST_ROW.map((key: string, index: number) => (
+          <button
+            key={index}
+            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 rounded-sm cursor-pointer"
+            onClick={() => onLetterEnter(key)}
+          >
+            {key}
+          </button>
+        ))}
+      </div>
+      <div className="flex gap-1">
+        {KEYS_2ND_ROW.map((key: string, index: number) => (
+          <button
+            key={index}
+            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 rounded-sm cursor-pointer"
+            onClick={() => onLetterEnter(key)}
+          >
+            {key}
+          </button>
+        ))}
+      </div>
+      <div className="flex gap-1">
         <button
-          key={index}
-          className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500"
-          onClick={() => onEnter(key)}
+          className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 rounded-sm cursor-pointer"
+          onClick={onWordEnter}
         >
-          {key}
+          <AiOutlineEnter />
         </button>
-      ))}
+        {KEYS_3RD_ROW.map((key: string, index: number) => (
+          <button
+            key={index}
+            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 rounded-sm cursor-pointer"
+            onClick={() => onLetterEnter(key)}
+          >
+            {key}
+          </button>
+        ))}
+        <button
+          className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 rounded-sm cursor-pointer"
+          onClick={onLetterRemove}
+        >
+          <FaDeleteLeft />
+        </button>
+      </div>
     </div>
   );
 }
