@@ -1,5 +1,13 @@
-function Keyboard() {
+import { GameState } from '../types';
+
+interface KeyboardProps {
+  gameState?: GameState;
+  onEnter: (key: string) => void;
+}
+
+function Keyboard({ gameState, onEnter }: KeyboardProps) {
   const KEYS = [
+    // '<X>',
     'Й',
     'Ц',
     'у',
@@ -33,19 +41,17 @@ function Keyboard() {
     'Ь',
     'Б',
     'Ю',
+    // 'Ввод',
   ];
-
-  const handleKeyClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    console.log(event.currentTarget.innerText.trim());
-  };
 
   return (
     <div className="grid grid-cols-11 gap-2">
+      
       {KEYS.map((key: string, index: number) => (
         <button
           key={index}
           className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500"
-          onClick={(event) => handleKeyClick(event)}
+          onClick={() => onEnter(key)}
         >
           {key}
         </button>
