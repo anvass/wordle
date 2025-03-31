@@ -11,11 +11,7 @@ function App() {
   });
 
   const handleLetterEnter = (key: string) => {
-    // - когда ввожу буквы, изменяем currentWord и проверяем его длину
-
-    // когда нажимаю на ввод
-    // - проверяем можно ли добавить в enteredWords
-    // - проверяем победили ли мы
+    // когда вводим буквы, изменяем currentWord и проверяем его длину
 
     if (gameState.currentWord.length < 5) {
       setGameState((prevState) => ({
@@ -25,7 +21,7 @@ function App() {
     }
   };
 
-  // - когда нажимаю на крестик, изменяем currentWord
+  // когда нажимаем на крестик, изменяем currentWord
   const handleLetterRemove = () => {
     if (gameState.currentWord.length > 0) {
       setGameState((prevState) => ({
@@ -35,7 +31,25 @@ function App() {
     }
   };
 
-  const handleWordEnter = (key: string) => {};
+  // когда нажимаем на ввод
+  // - проверяем можно ли добавить в enteredWords
+  // - проверяем победили ли мы
+  const handleWordEnter = () => {
+    const currentWord = gameState.currentWord.toLowerCase();
+    const guessWord = gameState.guessWord.toLowerCase();
+
+    if (currentWord.length !== 5) {
+      return;
+    }
+
+    if (currentWord === guessWord) {
+      alert('Вы угадали загаданное слово!');
+      return;
+    }
+
+    // если слово логичное, то добавляем в массив и подсвечиваем буквы
+    // gameState.enteredWords.push(currentWord);
+  };
 
   return (
     <>
