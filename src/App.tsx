@@ -7,7 +7,7 @@ function App() {
   const [gameState, setGameState] = useState<GameState>({
     enteredWords: ['осень', 'весна'],
     currentWord: '',
-    guessWord: 'пилот',
+    targetWord: 'пилот',
   });
 
   const handleLetterEnter = (key: string) => {
@@ -36,19 +36,28 @@ function App() {
   // - проверяем победили ли мы
   const handleWordEnter = () => {
     const currentWord = gameState.currentWord.toLowerCase();
-    const guessWord = gameState.guessWord.toLowerCase();
+    const targetWord = gameState.targetWord.toLowerCase();
 
     if (currentWord.length !== 5) {
       return;
     }
 
-    if (currentWord === guessWord) {
+    if (currentWord === targetWord) {
       alert('Вы угадали загаданное слово!');
       return;
     }
 
-    // если слово логичное, то добавляем в массив и подсвечиваем буквы
-    // gameState.enteredWords.push(currentWord);
+    if (gameState.enteredWords.length < 6 - 1) {
+      setGameState((prevState) => ({
+        ...prevState,
+        enteredWords: [...prevState.enteredWords, currentWord],
+        currentWord: '',
+      }));
+    } else {
+      alert('Вы проиграли! Попробуете снова?');
+      // reloadpage();
+      return;
+    }
   };
 
   return (
