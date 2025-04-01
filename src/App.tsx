@@ -43,11 +43,16 @@ function App() {
     }
 
     if (currentWord === targetWord) {
-      alert('Вы угадали загаданное слово!');
+      setGameState((prevState) => ({
+        ...prevState,
+        enteredWords: [...prevState.enteredWords, currentWord],
+        currentWord: '',
+      }));
+      // alert('Вы угадали загаданное слово!');
       return;
     }
 
-    if (gameState.enteredWords.length < 6 - 1) {
+    if (gameState.enteredWords.length < 5) {
       setGameState((prevState) => ({
         ...prevState,
         enteredWords: [...prevState.enteredWords, currentWord],
