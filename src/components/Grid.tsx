@@ -1,7 +1,7 @@
 import { GameState } from '../types';
 
 interface GridProps {
-  gameState?: GameState;
+  gameState: GameState;
 }
 
 type MatchLetterResult = 'match-total' | 'match-partial' | 'match-none';
