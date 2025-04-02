@@ -62,7 +62,9 @@ function App() {
   return (
     <>
       <br />
-      <h1 className="text-center text-3xl font-bold uppercase">Wordle</h1>
+      <h1 className="text-center text-5xl md:text-6xl tracking-wide uppercase">
+        Wordle
+      </h1>
       <br />
       <Grid gameState={gameState} />
       <br />

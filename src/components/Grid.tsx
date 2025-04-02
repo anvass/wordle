@@ -85,7 +85,7 @@ function Grid({ gameState }: GridProps) {
         <div className="flex w-full max-w-[95%] sm:max-w-lg gap-1">
           {enteredWord.split('').map((letter, index) => (
             <div
-              className={`flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-semibold rounded-sm ${createLetterClassName(
+              className={`flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-semibold ${createLetterClassName(
                 letter,
                 index,
                 targetWord
@@ -102,7 +102,7 @@ function Grid({ gameState }: GridProps) {
         <div className="flex w-full max-w-[95%] sm:max-w-lg gap-1">
           {cols.map((_, index) => (
             <div
-              className="flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300 rounded-sm"
+              className="flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300"
               key={index}
             >
               <p>{currentWord[index] || '\u00A0'}</p>
@@ -115,7 +115,7 @@ function Grid({ gameState }: GridProps) {
         <div className="flex w-full max-w-[95%] sm:max-w-lg gap-1">
           {cols.map((_, index) => (
             <div
-              className="flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300 rounded-sm"
+              className="flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300"
               key={index}
             >
               <p>&nbsp;</p>

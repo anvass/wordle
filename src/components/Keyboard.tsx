@@ -53,7 +53,7 @@ function Keyboard({
         {KEYS_1ST_ROW.map((key: string, index: number) => (
           <button
             key={index}
-            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 rounded-sm cursor-pointer"
+            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer"
             onClick={() => onLetterEnter(key)}
           >
             {key}
@@ -64,7 +64,7 @@ function Keyboard({
         {KEYS_2ND_ROW.map((key: string, index: number) => (
           <button
             key={index}
-            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 rounded-sm cursor-pointer"
+            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer"
             onClick={() => onLetterEnter(key)}
           >
             {key}
@@ -73,7 +73,7 @@ function Keyboard({
       </div>
       <div className="flex gap-1">
         <button
-          className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 rounded-sm cursor-pointer"
+          className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer"
           onClick={onWordEnter}
         >
           <AiOutlineEnter />
@@ -81,14 +81,14 @@ function Keyboard({
         {KEYS_3RD_ROW.map((key: string, index: number) => (
           <button
             key={index}
-            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 rounded-sm cursor-pointer"
+            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer"
             onClick={() => onLetterEnter(key)}
           >
             {key}
           </button>
         ))}
         <button
-          className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 rounded-sm cursor-pointer"
+          className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer"
           onClick={onLetterRemove}
         >
           <FaDeleteLeft />
