@@ -44,80 +44,85 @@ function Grid({ gameState }: GridProps) {
     return letterClassNames[match];
   }
 
+  // grid: letter, index -> status
+  // keyword: letter -> status
+
+  //
+
+  // TOTAL ROWS = 6
+  // TOTAL COLS = 6
+  //
+  // for enteredWords: <div class="row">{enteredWord}</div>
+
+  // for current word:
+  // <div class="row">
+
+  // </div>
+
+  // for emptyWords: <div class="row">{enteredWord}</div>
+
+  {
+    /*
+
+    1. create array with TOTAL_COLS_LENGTH, newArray
+    2. 
+      newArray.map(_ => (
+        <div class="letter">
+        </div>
+      ))
+
+*/
+  }
+
+  const cols = Array.from({ length: COLS_COUNT });
+  const emptyRows = Array.from({
+    length: ROWS_COUNT - enteredWords.length - 1,
+  });
+
   return (
-    <div className="flex justify-center w-full">
-      <div
-        className={`grid grid-cols-${COLS_COUNT} grid-rows-${ROWS_COUNT} gap-2 w-full max-w-[95%] sm:max-w-xl`}
-      >
-        {enteredWords.length > 0 &&
-          enteredWords.map((enteredWord: string) =>
-            enteredWord.split('').map(
-              (letter, index: number) =>
-                index < COLS_COUNT && (
-                  <div
-                    className={`border-2 px-1 py-2 text-center text-3xl sm:text-4xl uppercase font-bold rounded-sm ${createLetterClassName(
-                      letter,
-                      index,
-                      targetWord
-                    )}`}
-                    key={index}
-                  >
-                    <p>{letter}</p>
-                  </div>
-                )
-            )
-          )}
-
-        {currentWord.length > 0 &&
-          currentWord.split('').map(
-            (letter: string, index: number) =>
-              index < COLS_COUNT && (
-                <div
-                  className="border-2 px-1 py-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300 rounded-sm"
-                  key={index}
-                >
-                  <p>{letter}</p>
-                </div>
-              )
-          )}
-
-        {currentWord.length > 0 &&
-          currentWord.length < COLS_COUNT &&
-          Array.from(
-            { length: COLS_COUNT - currentWord.length },
-            (_, index) => (
-              <div
-                className="border-2 px-1 py-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300 rounded-sm"
-                key={index}
-              >
-                <p>&nbsp;</p>
-              </div>
-            )
-          )}
-
-        {currentWord.length == 0 &&
-          Array.from({ length: COLS_COUNT }, (_, index) => (
+    <div className="flex flex-col justify-center items-center w-full gap-1">
+      {enteredWords.map((enteredWord) => (
+        <div className="flex w-full max-w-[95%] sm:max-w-lg gap-1">
+          {enteredWord.split('').map((letter, index) => (
             <div
-              className="border-2 px-1 py-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300 rounded-sm"
+              className={`flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-semibold rounded-sm ${createLetterClassName(
+                letter,
+                index,
+                targetWord
+              )}`}
+              key={index}
+            >
+              <p>{letter}</p>
+            </div>
+          ))}
+        </div>
+      ))}
+
+      {enteredWords.length + 1 + emptyRows.length <= 6 && (
+        <div className="flex w-full max-w-[95%] sm:max-w-lg gap-1">
+          {cols.map((_, index) => (
+            <div
+              className="flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300 rounded-sm"
+              key={index}
+            >
+              <p>{currentWord[index] || '\u00A0'}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {emptyRows.map((_) => (
+        <div className="flex w-full max-w-[95%] sm:max-w-lg gap-1">
+          {cols.map((_, index) => (
+            <div
+              className="flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300 rounded-sm"
               key={index}
             >
               <p>&nbsp;</p>
             </div>
           ))}
-
-        {ROWS_COUNT - enteredWords.length - 1 > 0 &&
-          Array.from(
-            { length: (ROWS_COUNT - enteredWords.length - 1) * COLS_COUNT },
-            (_, index) => (
-              <div
-                className="border-2 px-1 py-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300 rounded-sm"
-                key={index}
-              >
-                <p>&nbsp;</p>
-              </div>
-            )
-          )}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }
