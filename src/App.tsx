@@ -39,6 +39,11 @@ function App() {
       return;
     }
 
+    if (!words.includes(currentWord)) {
+      alert('В словаре нет такого слова. Попробуйте другое!');
+      return;
+    }
+
     if (currentWord === targetWord) {
       setGameState((prevState) => ({
         ...prevState,
