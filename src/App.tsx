@@ -2,12 +2,15 @@ import { useState } from 'react';
 import Keyboard from './components/Keyboard';
 import Grid from './components/Grid';
 import { GameState } from './types';
+import dict from './dict.json';
 
 function App() {
+  const words = dict.words;
+
   const [gameState, setGameState] = useState<GameState>({
     enteredWords: ['осень', 'весна'],
     currentWord: '',
-    targetWord: 'пилот',
+    targetWord: words[Math.floor(Math.random() * words.length)],
   });
 
   const handleLetterEnter = (key: string) => {
