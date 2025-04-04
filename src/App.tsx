@@ -32,7 +32,7 @@ function App() {
     const currentWord = gameState.currentWord.toLowerCase();
     const targetWord = gameState.targetWord.toLowerCase();
 
-    if (currentWord.length !== 5) {
+    if (currentWord.length !== 5 || gameState.enteredWords.length === 6) {
       return;
     }
 
