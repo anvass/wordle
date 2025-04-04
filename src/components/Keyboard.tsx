@@ -3,10 +3,55 @@ import { FaDeleteLeft } from 'react-icons/fa6';
 import { AiOutlineEnter } from 'react-icons/ai';
 
 interface KeyboardProps {
-  gameState?: GameState;
+  gameState: GameState;
   onLetterEnter: (key: string) => void;
   onLetterRemove: () => void;
   onWordEnter: () => void;
+}
+
+type MatchLetterResult = 'match-total' | 'match-partial' | 'match-none';
+
+function matchLetterInWord(
+  letterValue: string,
+  letterIndex: number,
+  word: string
+): MatchLetterResult {
+  if (word[letterIndex] === letterValue) {
+    return 'match-total';
+  }
+
+  if (word.includes(letterValue)) {
+    return 'match-partial';
+  }
+
+  return 'match-none';
+}
+
+function calcLetter(targetWord: string, enteredWords: string[]) {
+  const d: Record<string, MatchLetterResult> = {};
+
+  for (const enteredWord of enteredWords) {
+    for (let i = 0; i < enteredWord.length; i++) {
+      const letter = enteredWord[i];
+      const matchResult = matchLetterInWord(letter, i, targetWord);
+
+      if (d[letter] === 'match-total') {
+        continue;
+      }
+
+      if (d[letter] === 'match-partial') {
+        if (matchResult === 'match-total') {
+          d[letter] = 'match-total';
+        } else {
+          continue;
+        }
+      }
+
+      d[letter] = matchResult;
+    }
+  }
+
+  return d;
 }
 
 function Keyboard({
@@ -15,6 +60,26 @@ function Keyboard({
   onLetterRemove,
   onWordEnter,
 }: KeyboardProps) {
+  
+  const letterMatchDictionary = calcLetter(
+    gameState?.targetWord,
+    gameState?.enteredWords
+  );
+
+  function addClass(letter: string): string {
+    if (letterMatchDictionary[letter.toLowerCase()] === 'match-total') {
+      return 'bg-green-400 text-white';
+    }
+    if (letterMatchDictionary[letter.toLowerCase()] === 'match-partial') {
+      return 'bg-yellow-400 text-white';
+    }
+    if (letterMatchDictionary[letter.toLowerCase()] === 'match-none') {
+      return 'bg-gray-400 text-white';
+    }
+
+    return '';
+  }
+
   const KEYS_1ST_ROW = [
     'Й',
     'Ц',
@@ -53,7 +118,9 @@ function Keyboard({
         {KEYS_1ST_ROW.map((key: string, index: number) => (
           <button
             key={index}
-            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer"
+            className={`${addClass(
+              key
+            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer`}
             onClick={() => onLetterEnter(key)}
           >
             {key}
@@ -64,7 +131,9 @@ function Keyboard({
         {KEYS_2ND_ROW.map((key: string, index: number) => (
           <button
             key={index}
-            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer"
+            className={`${addClass(
+              key
+            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer`}
             onClick={() => onLetterEnter(key)}
           >
             {key}
@@ -81,7 +150,9 @@ function Keyboard({
         {KEYS_3RD_ROW.map((key: string, index: number) => (
           <button
             key={index}
-            className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer"
+            className={`${addClass(
+              key
+            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer`}
             onClick={() => onLetterEnter(key)}
           >
             {key}

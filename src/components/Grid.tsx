@@ -6,73 +6,46 @@ interface GridProps {
 
 type MatchLetterResult = 'match-total' | 'match-partial' | 'match-none';
 
+function matchLetterInWord(
+  letterValue: string,
+  letterIndex: number,
+  word: string
+): MatchLetterResult {
+  if (word[letterIndex] === letterValue) {
+    return 'match-total';
+  }
+
+  if (word.includes(letterValue)) {
+    return 'match-partial';
+  }
+
+  return 'match-none';
+}
+
+const letterClassNames: Record<MatchLetterResult, string> = {
+  'match-total': 'bg-green-500 text-white border-transparent',
+  'match-partial': 'bg-yellow-400 text-white border-transparent',
+  'match-none': 'bg-gray-500 text-white border-transparent',
+};
+
+function createLetterClassName(
+  letterValue: string,
+  letterIndex: number,
+  word: string
+): string {
+  const match = matchLetterInWord(letterValue, letterIndex, word);
+
+  return letterClassNames[match];
+}
+
 function Grid({ gameState }: GridProps) {
   const ROWS_COUNT = 6;
   const COLS_COUNT = 5;
 
   const { enteredWords, currentWord, targetWord } = gameState;
 
-  function matchLetterInWord(
-    letterValue: string,
-    letterIndex: number,
-    word: string
-  ): MatchLetterResult {
-    if (word[letterIndex] === letterValue) {
-      return 'match-total';
-    }
-
-    if (word.includes(letterValue)) {
-      return 'match-partial';
-    }
-
-    return 'match-none';
-  }
-
-  const letterClassNames: Record<MatchLetterResult, string> = {
-    'match-total': 'bg-green-500 text-white border-transparent',
-    'match-partial': 'bg-yellow-400 text-white border-transparent',
-    'match-none': 'bg-gray-500 text-white border-transparent',
-  };
-
-  function createLetterClassName(
-    letterValue: string,
-    letterIndex: number,
-    word: string
-  ): string {
-    const match = matchLetterInWord(letterValue, letterIndex, word);
-
-    return letterClassNames[match];
-  }
-
   // grid: letter, index -> status
   // keyword: letter -> status
-
-  //
-
-  // TOTAL ROWS = 6
-  // TOTAL COLS = 6
-  //
-  // for enteredWords: <div class="row">{enteredWord}</div>
-
-  // for current word:
-  // <div class="row">
-
-  // </div>
-
-  // for emptyWords: <div class="row">{enteredWord}</div>
-
-  {
-    /*
-
-    1. create array with TOTAL_COLS_LENGTH, newArray
-    2. 
-      newArray.map(_ => (
-        <div class="letter">
-        </div>
-      ))
-
-*/
-  }
 
   const cols = Array.from({ length: COLS_COUNT });
   const emptyRows = Array.from({
