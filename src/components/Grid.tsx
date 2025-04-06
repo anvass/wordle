@@ -1,3 +1,4 @@
+import { COLS_COUNT, ROWS_COUNT } from '../constants';
 import { GameState } from '../types';
 
 interface GridProps {
@@ -39,13 +40,7 @@ function createLetterClassName(
 }
 
 function Grid({ gameState }: GridProps) {
-  const ROWS_COUNT = 6;
-  const COLS_COUNT = 5;
-
   const { enteredWords, currentWord, targetWord } = gameState;
-
-  // grid: letter, index -> status
-  // keyword: letter -> status
 
   const cols = Array.from({ length: COLS_COUNT });
   const emptyRows = Array.from({

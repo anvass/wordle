@@ -3,6 +3,7 @@ import Keyboard from './components/Keyboard';
 import Grid from './components/Grid';
 import { GameState } from './types';
 import words from './dict.json';
+import { COLS_COUNT, ROWS_COUNT } from './constants';
 
 function App() {
   const [gameState, setGameState] = useState<GameState>({
@@ -12,7 +13,7 @@ function App() {
   });
 
   const handleLetterEnter = (key: string) => {
-    if (gameState.currentWord.length < 5) {
+    if (gameState.currentWord.length < COLS_COUNT) {
       setGameState((prevState) => ({
         ...prevState,
         currentWord: prevState.currentWord + key,
@@ -33,7 +34,10 @@ function App() {
     const currentWord = gameState.currentWord.toLowerCase();
     const targetWord = gameState.targetWord.toLowerCase();
 
-    if (currentWord.length !== 5 || gameState.enteredWords.length === 6) {
+    if (
+      currentWord.length !== COLS_COUNT ||
+      gameState.enteredWords.length === ROWS_COUNT
+    ) {
       return;
     }
 
@@ -52,7 +56,7 @@ function App() {
       return;
     }
 
-    if (gameState.enteredWords.length < 5) {
+    if (gameState.enteredWords.length < ROWS_COUNT - 1) {
       setGameState((prevState) => ({
         ...prevState,
         enteredWords: [...prevState.enteredWords, currentWord],
