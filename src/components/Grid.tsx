@@ -1,26 +1,9 @@
 import { COLS_COUNT, ROWS_COUNT } from '../constants';
-import { GameState } from '../types';
+import { GameState, MatchLetterResult } from '../types';
+import { matchLetterInWord } from '../utils/matchLetterInWord';
 
 interface GridProps {
   gameState: GameState;
-}
-
-type MatchLetterResult = 'match-total' | 'match-partial' | 'match-none';
-
-function matchLetterInWord(
-  letterValue: string,
-  letterIndex: number,
-  word: string
-): MatchLetterResult {
-  if (word[letterIndex] === letterValue) {
-    return 'match-total';
-  }
-
-  if (word.includes(letterValue)) {
-    return 'match-partial';
-  }
-
-  return 'match-none';
 }
 
 const letterClassNames: Record<MatchLetterResult, string> = {

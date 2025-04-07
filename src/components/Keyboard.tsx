@@ -1,30 +1,13 @@
-import { GameState } from '../types';
+import { GameState, MatchLetterResult } from '../types';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { AiOutlineEnter } from 'react-icons/ai';
+import { matchLetterInWord } from '../utils/matchLetterInWord';
 
 interface KeyboardProps {
   gameState: GameState;
   onLetterEnter: (key: string) => void;
   onLetterRemove: () => void;
   onWordEnter: () => void;
-}
-
-type MatchLetterResult = 'match-total' | 'match-partial' | 'match-none';
-
-function matchLetterInWord(
-  letterValue: string,
-  letterIndex: number,
-  word: string
-): MatchLetterResult {
-  if (word[letterIndex] === letterValue) {
-    return 'match-total';
-  }
-
-  if (word.includes(letterValue)) {
-    return 'match-partial';
-  }
-
-  return 'match-none';
 }
 
 function calcLetter(targetWord: string, enteredWords: string[]) {
