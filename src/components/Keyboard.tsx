@@ -60,7 +60,6 @@ function Keyboard({
   onLetterRemove,
   onWordEnter,
 }: KeyboardProps) {
-  
   const letterMatchDictionary = calcLetter(
     gameState?.targetWord,
     gameState?.enteredWords
@@ -95,20 +94,7 @@ function Keyboard({
     'Ъ',
   ];
 
-  const KEYS_2ND_ROW = [
-    'Ф',
-    'Ы',
-    'В',
-    'А',
-    'П',
-    'Р',
-    'О',
-    'Л',
-    'Д',
-    'Ж',
-    'Э',
-    'Ё',
-  ];
+  const KEYS_2ND_ROW = ['Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э'];
 
   const KEYS_3RD_ROW = ['Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю'];
 
