@@ -4,13 +4,16 @@ import Grid from './components/Grid';
 import { GameState } from './types';
 import words from './dict.json';
 import { COLS_COUNT, ROWS_COUNT } from './constants';
+import Modal from './components/Modal';
 
 function App() {
   const [gameState, setGameState] = useState<GameState>({
-    enteredWords: ['осень', 'весна'],
+    enteredWords: [],
     currentWord: '',
     targetWord: words[Math.floor(Math.random() * words.length)],
   });
+  const [isOpen, setIsOpen] = useState(false);
+  const [isSuccessGame, setIsSuccessGame] = useState(false);
 
   const handleLetterEnter = (key: string) => {
     if (gameState.currentWord.length < COLS_COUNT) {
@@ -30,6 +33,17 @@ function App() {
     }
   };
 
+  // console.log(gameState);
+
+  const handleResetGame = () => {
+    setGameState(() => ({
+      enteredWords: [],
+      currentWord: '',
+      targetWord: words[Math.floor(Math.random() * words.length)],
+    }));
+    setIsOpen(false);
+  };
+
   const handleWordEnter = () => {
     const currentWord = gameState.currentWord.toLowerCase();
     const targetWord = gameState.targetWord.toLowerCase();
@@ -43,6 +57,10 @@ function App() {
 
     if (!words.includes(currentWord)) {
       alert('В словаре нет такого слова. Попробуйте другое!');
+      setGameState((prevState) => ({
+        ...prevState,
+        currentWord: '',
+      }));
       return;
     }
 
@@ -52,7 +70,8 @@ function App() {
         enteredWords: [...prevState.enteredWords, currentWord],
         currentWord: '',
       }));
-      alert('Вы угадали загаданное слово!');
+      setIsSuccessGame(true);
+      setIsOpen(true);
       return;
     }
 
@@ -63,8 +82,8 @@ function App() {
         currentWord: '',
       }));
     } else {
-      alert('Вы проиграли! Попробуете снова?');
-      // reloadpage();
+      setIsSuccessGame(false);
+      setIsOpen(true);
       return;
     }
   };
@@ -85,6 +104,24 @@ function App() {
         onWordEnter={handleWordEnter}
       />
       <br />
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title={isSuccessGame ? 'Победа!' : 'Неудача :('}
+        onReset={() => handleResetGame()}
+      >
+        <div className="space-y-4 text-center">
+          {isSuccessGame ? (
+            <p>
+              Поздравляем!<br></br>Вы отгадали слово!
+            </p>
+          ) : (
+            <p>
+              К сожалению, вы не отгадали!<br></br>Попробуете снова?
+            </p>
+          )}
+        </div>
+      </Modal>
     </>
   );
 }
