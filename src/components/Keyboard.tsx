@@ -82,7 +82,7 @@ function Keyboard({
   const KEYS_3RD_ROW = ['Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю'];
 
   return (
-    <div className="flex flex-col w-full max-w-[95%] sm:max-w-xl mx-auto gap-1">
+    <div className="flex flex-col w-full max-w-[95%] sm:max-w-xl mx-auto gap-1 my-10">
       <div className="flex gap-1">
         {KEYS_1ST_ROW.map((key: string, index: number) => (
           <button

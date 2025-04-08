@@ -93,14 +93,12 @@ function App() {
     <>
       <Header />
       <Grid gameState={gameState} />
-      <br />
       <Keyboard
         gameState={gameState}
         onLetterEnter={handleLetterEnter}
         onLetterRemove={handleLetterRemove}
         onWordEnter={handleWordEnter}
       />
-      <br />
       <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
