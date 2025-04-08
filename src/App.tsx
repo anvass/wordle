@@ -5,7 +5,7 @@ import { GameState } from './types';
 import words from './dict.json';
 import { COLS_COUNT, ROWS_COUNT } from './constants';
 import Modal from './components/Modal';
-import { BsQuestionCircleFill } from 'react-icons/bs';
+import Header from './components/Header';
 
 function App() {
   const [gameState, setGameState] = useState<GameState>({
@@ -91,11 +91,7 @@ function App() {
 
   return (
     <>
-      <br />
-                <h1 className="text-center text-5xl md:text-6xl tracking-wide uppercase">
-            Wordle
-          </h1>
-              <br />
+      <Header />
       <Grid gameState={gameState} />
       <br />
       <Keyboard
