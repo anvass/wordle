@@ -1,4 +1,5 @@
 import React from 'react';
+import { IoMdCloseCircle } from 'react-icons/io';
 
 interface ModalProps {
   isOpen: boolean;
@@ -31,7 +32,7 @@ function Modal({ isOpen, onClose, children, title, onReset }: ModalProps) {
           className="absolute right-0 top-0 p-2 hover:bg-gray-100 transition-colors cursor-pointer"
           aria-label="Close modal"
         >
-          ×
+          <IoMdCloseCircle />
         </button>
 
         {title && (
