@@ -14,3 +14,9 @@
 h1 {
   font-weight: 700;
 }
+
+.container {
+  width: 100%;
+  max-width: 95%;
+  margin: 0 auto;
+}

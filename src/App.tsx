@@ -6,6 +6,7 @@ import words from './dict.json';
 import { COLS_COUNT, ROWS_COUNT } from './constants';
 import Modal from './components/Modal';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   const [gameState, setGameState] = useState<GameState>({
@@ -99,6 +100,8 @@ function App() {
         onLetterRemove={handleLetterRemove}
         onWordEnter={handleWordEnter}
       />
+      <Footer />
+
       <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
