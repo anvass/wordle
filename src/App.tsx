@@ -5,6 +5,7 @@ import { GameState } from './types';
 import words from './dict.json';
 import { COLS_COUNT, ROWS_COUNT } from './constants';
 import Modal from './components/Modal';
+import { BsQuestionCircleFill } from 'react-icons/bs';
 
 function App() {
   const [gameState, setGameState] = useState<GameState>({
@@ -33,7 +34,7 @@ function App() {
     }
   };
 
-  // console.log(gameState);
+  console.log(gameState);
 
   const handleResetGame = () => {
     setGameState(() => ({
@@ -91,10 +92,10 @@ function App() {
   return (
     <>
       <br />
-      <h1 className="text-center text-5xl md:text-6xl tracking-wide uppercase">
-        Wordle
-      </h1>
-      <br />
+                <h1 className="text-center text-5xl md:text-6xl tracking-wide uppercase">
+            Wordle
+          </h1>
+              <br />
       <Grid gameState={gameState} />
       <br />
       <Keyboard
@@ -110,7 +111,7 @@ function App() {
         title={isSuccessGame ? 'Победа!' : 'Неудача :('}
         onReset={() => handleResetGame()}
       >
-        <div className="space-y-4 text-center">
+        <div className="space-y-4 text-center text-md">
           {isSuccessGame ? (
             <p>
               Поздравляем!<br></br>Вы отгадали слово!
