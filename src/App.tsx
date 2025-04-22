@@ -8,14 +8,16 @@ import Modal from './components/Modal';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
+type ModalName = 'help' | 'success' | 'failed' | 'config';
+
 function App() {
   const [gameState, setGameState] = useState<GameState>({
     enteredWords: [],
     currentWord: '',
     targetWord: words[Math.floor(Math.random() * words.length)],
   });
-  const [isOpen, setIsOpen] = useState(false);
-  const [isSuccessGame, setIsSuccessGame] = useState(false);
+
+  const [modalName, setModalName] = useState<ModalName | null>(null);
 
   const handleLetterEnter = (key: string) => {
     if (gameState.currentWord.length < COLS_COUNT) {
@@ -43,7 +45,7 @@ function App() {
       currentWord: '',
       targetWord: words[Math.floor(Math.random() * words.length)],
     }));
-    setIsOpen(false);
+    setModalName(null);
   };
 
   const handleWordEnter = () => {
@@ -72,8 +74,7 @@ function App() {
         enteredWords: [...prevState.enteredWords, currentWord],
         currentWord: '',
       }));
-      setIsSuccessGame(true);
-      setIsOpen(true);
+      setModalName('success');
       return;
     }
 
@@ -84,15 +85,16 @@ function App() {
         currentWord: '',
       }));
     } else {
-      setIsSuccessGame(false);
-      setIsOpen(true);
+      setModalName('failed');
       return;
     }
   };
 
+  const handleHelpClick = () => setModalName('help');
+
   return (
     <>
-      <Header />
+      <Header onHelpClick={handleHelpClick} />
       <Grid gameState={gameState} />
       <Keyboard
         gameState={gameState}
@@ -100,28 +102,71 @@ function App() {
         onLetterRemove={handleLetterRemove}
         onWordEnter={handleWordEnter}
       />
+      <ModalContainer
+        modalName={modalName}
+        setModalName={setModalName}
+        onReset={handleResetGame}
+      />
       <Footer />
-
-      <Modal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title={isSuccessGame ? 'Победа!' : 'Неудача :('}
-        onReset={() => handleResetGame()}
-      >
-        <div className="space-y-4 text-center text-md">
-          {isSuccessGame ? (
-            <p>
-              Поздравляем!<br></br>Вы отгадали слово!
-            </p>
-          ) : (
-            <p>
-              К сожалению, вы не отгадали!<br></br>Попробуете снова?
-            </p>
-          )}
-        </div>
-      </Modal>
     </>
   );
+}
+
+function ModalContainer({
+  modalName,
+  setModalName,
+  onReset,
+}: {
+  modalName: null | string;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+  setModalName: Function;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+  onReset: Function;
+}) {
+  if (!modalName) {
+    return null;
+  }
+  if (modalName === 'help') {
+    return (
+      <Modal onClose={() => setModalName(null)} title={'Help'}>
+        Help
+      </Modal>
+    );
+  }
+  if (modalName === 'success') {
+    return (
+      <Modal onClose={() => setModalName(null)} title={'Победа!'}>
+        <p>Поздравляем!</p>
+        <p>Вы отгадали слово!</p>
+        <div className="flex mt-4">
+          <button
+            onClick={() => {
+              onReset();
+            }}
+            className="w-full p-3 rounded-md text-lg bg-blue-600 text-white uppercase hover:bg-blue-700 transition-colors cursor-pointer"
+          >
+            Начать заново
+          </button>
+        </div>
+      </Modal>
+    );
+  }
+  if (modalName === 'failed') {
+    return (
+      <Modal onClose={() => setModalName(null)} title={'Неудача'}>
+        <p>К сожалению, вы не отгадали!</p>
+        <p>Попробуете снова?</p>
+        <div className="flex mt-4">
+          <button
+            onClick={() => onReset()}
+            className="w-full p-3 rounded-md text-lg bg-blue-600 text-white uppercase hover:bg-blue-700 transition-colors cursor-pointer"
+          >
+            Начать заново
+          </button>
+        </div>
+      </Modal>
+    );
+  }
 }
 
 export default App;
