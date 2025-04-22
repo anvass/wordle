@@ -107,7 +107,7 @@ function App() {
         setModalName={setModalName}
         onReset={handleResetGame}
       />
-      <Footer />
+      <Footer onHelpClick={handleHelpClick} />
     </>
   );
 }
