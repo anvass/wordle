@@ -1,4 +1,3 @@
-import React from 'react';
 import Modal from './Modal';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { AiOutlineEnter } from 'react-icons/ai';

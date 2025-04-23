@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import Keyboard from './components/Keyboard';
 import Grid from './components/Grid';
-import { GameState } from './types';
+import { GameState, ModalName } from './types';
 import words from './dict.json';
 import { COLS_COUNT, ROWS_COUNT } from './constants';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ModalContainer from './components/ModalContainer';
-
-type ModalName = 'help' | 'success' | 'failed' | 'config';
 
 function App() {
   const [gameState, setGameState] = useState<GameState>({
@@ -94,20 +92,22 @@ function App() {
 
   return (
     <>
-      <Header onHelpClick={handleHelpClick} />
-      <Grid gameState={gameState} />
-      <Keyboard
-        gameState={gameState}
-        onLetterEnter={handleLetterEnter}
-        onLetterRemove={handleLetterRemove}
-        onWordEnter={handleWordEnter}
-      />
-      <ModalContainer
-        modalName={modalName}
-        setModalName={setModalName}
-        onReset={handleResetGame}
-      />
-      <Footer onHelpClick={handleHelpClick} />
+      <div className="flex flex-col min-h-screen">
+        <Header onHelpClick={handleHelpClick} />
+        <Grid gameState={gameState} />
+        <Keyboard
+          gameState={gameState}
+          onLetterEnter={handleLetterEnter}
+          onLetterRemove={handleLetterRemove}
+          onWordEnter={handleWordEnter}
+        />
+        <ModalContainer
+          modalName={modalName}
+          setModalName={setModalName}
+          onReset={handleResetGame}
+        />
+        <Footer onHelpClick={handleHelpClick} />
+      </div>
     </>
   );
 }

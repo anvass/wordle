@@ -11,3 +11,5 @@ export interface LetterState {
 }
 
 export type MatchLetterResult = 'match-total' | 'match-partial' | 'match-none';
+
+export type ModalName = 'help' | 'success' | 'failed' | 'config';
