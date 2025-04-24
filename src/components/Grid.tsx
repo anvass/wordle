@@ -31,7 +31,7 @@ function Grid({ gameState }: GridProps) {
   });
 
   return (
-    <div className="flex flex-col justify-center items-center w-full gap-1 my-10">
+    <div className="flex flex-col justify-center items-center w-full gap-1">
       {enteredWords.map((enteredWord, wordIndex) => (
         <div
           className="flex w-full max-w-[95%] sm:max-w-lg gap-1"
