@@ -15,7 +15,7 @@ function App() {
     targetWord: words[Math.floor(Math.random() * words.length)],
   });
 
-  const [modalName, setModalName] = useState<ModalName | null>(null);
+  const [modalName, setModalName] = useState<ModalName | null>('help');
 
   const handleLetterEnter = (key: string) => {
     if (gameState.currentWord.length < COLS_COUNT) {
