@@ -40,7 +40,6 @@ const appSlice = createSlice({
       state.gameState.currentWord = '';
     },
   },
-  extraReducers: () => {},
 });
 
 export default appSlice.reducer;
