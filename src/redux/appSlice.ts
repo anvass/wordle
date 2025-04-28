@@ -26,7 +26,6 @@ const appSlice = createSlice({
       state.gameState.currentWord = state.gameState.currentWord.slice(0, -1);
     },
     resetGame: (state) => {
-      // state.gameState = { ...initialState.gameState };
       state.gameState = {
         enteredWords: [],
         currentWord: '',
@@ -35,8 +34,6 @@ const appSlice = createSlice({
     },
     addWordToEnteredWords: (state, action: PayloadAction<string>) => {
       state.gameState.enteredWords.push(action.payload);
-    },
-    resetCurrentWord: (state) => {
       state.gameState.currentWord = '';
     },
   },
@@ -48,5 +45,4 @@ export const {
   removeLastLetterInCurrentWord,
   resetGame,
   addWordToEnteredWords,
-  resetCurrentWord,
 } = appSlice.actions;

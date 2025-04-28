@@ -44,7 +44,6 @@ function Keyboard({
   onLetterRemove,
   onWordEnter,
 }: KeyboardProps) {
-
   const letterMatchDictionary = calcLetter(
     gameState?.targetWord,
     gameState?.enteredWords

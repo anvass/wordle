@@ -14,19 +14,15 @@ import {
   removeLastLetterInCurrentWord,
   resetGame,
   addWordToEnteredWords,
-  resetCurrentWord,
 } from './redux/appSlice';
 
 function App() {
   const gameState = useAppSelector((store) => store.appSlice.gameState);
   const dispatch = useAppDispatch();
 
-  console.log('APP gameState', gameState);
-
-  const [modalName, setModalName] = useState<ModalName | null>('help');
-
   const { width, height } = useWindowSize();
   const [needConfetti, setNeedConfetti] = useState<boolean>(false);
+  const [modalName, setModalName] = useState<ModalName | null>('help');
 
   const handleLetterEnter = (key: string) => {
     if (gameState.currentWord.length < COLS_COUNT) {
@@ -48,7 +44,7 @@ function App() {
 
   const handleCloseModal = () => {
     setModalName(null);
-  }
+  };
 
   const handleWordEnter = () => {
     const currentWord = gameState.currentWord.toLowerCase();
@@ -72,7 +68,6 @@ function App() {
 
     if (currentWord === targetWord) {
       dispatch(addWordToEnteredWords(currentWord));
-      dispatch(resetCurrentWord());
       setModalName('success');
       setNeedConfetti(true);
       return;
@@ -80,7 +75,6 @@ function App() {
 
     if (gameState.enteredWords.length < ROWS_COUNT - 1) {
       dispatch(addWordToEnteredWords(currentWord));
-      dispatch(resetCurrentWord());
     } else {
       setModalName('failed');
       return;
