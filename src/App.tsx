@@ -7,6 +7,8 @@ import { COLS_COUNT, ROWS_COUNT } from './constants';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ModalContainer from './components/ModalContainer';
+import { useWindowSize } from 'react-use';
+import Confetti from 'react-confetti';
 
 function App() {
   const [gameState, setGameState] = useState<GameState>({
@@ -16,6 +18,9 @@ function App() {
   });
 
   const [modalName, setModalName] = useState<ModalName | null>('help');
+
+  const { width, height } = useWindowSize();
+  const [needConfetti, setNeedConfetti] = useState<boolean>(false);
 
   const handleLetterEnter = (key: string) => {
     if (gameState.currentWord.length < COLS_COUNT) {
@@ -43,6 +48,7 @@ function App() {
       currentWord: '',
       targetWord: words[Math.floor(Math.random() * words.length)],
     }));
+    setNeedConfetti(false);
     setModalName(null);
   };
 
@@ -73,6 +79,7 @@ function App() {
         currentWord: '',
       }));
       setModalName('success');
+      setNeedConfetti(true);
       return;
     }
 
@@ -107,6 +114,7 @@ function App() {
           onReset={handleResetGame}
         />
         <Footer onHelpClick={handleHelpClick} />
+        {needConfetti && <Confetti width={width} height={height} />}
       </div>
     </>
   );
