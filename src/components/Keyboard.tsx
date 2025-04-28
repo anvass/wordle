@@ -60,7 +60,7 @@ function Keyboard({
       return 'bg-yellow-400 text-white';
     }
     if (letterMatchDictionary[letter.toLowerCase()] === 'match-none') {
-      return 'bg-gray-400 text-white';
+      return 'bg-gray-500 text-white';
     }
 
     return '';
