@@ -1,0 +1,53 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { GameState } from '../types';
+import words from '../dict.json';
+
+export type InitialState = {
+  gameState: GameState;
+};
+
+const initialState: InitialState = {
+  gameState: {
+    enteredWords: [],
+    currentWord: '',
+    targetWord: words[Math.floor(Math.random() * words.length)],
+  },
+};
+
+const appSlice = createSlice({
+  name: 'appSlice',
+  initialState,
+  reducers: {
+    setCurrentWord: (state, action: PayloadAction<string>) => {
+      state.gameState.currentWord =
+        state.gameState.currentWord + action.payload;
+    },
+    removeLastLetterInCurrentWord: (state) => {
+      state.gameState.currentWord = state.gameState.currentWord.slice(0, -1);
+    },
+    resetGame: (state) => {
+      // state.gameState = { ...initialState.gameState };
+      state.gameState = {
+        enteredWords: [],
+        currentWord: '',
+        targetWord: words[Math.floor(Math.random() * words.length)],
+      };
+    },
+    addWordToEnteredWords: (state, action: PayloadAction<string>) => {
+      state.gameState.enteredWords.push(action.payload);
+    },
+    resetCurrentWord: (state) => {
+      state.gameState.currentWord = '';
+    },
+  },
+  extraReducers: () => {},
+});
+
+export default appSlice.reducer;
+export const {
+  setCurrentWord,
+  removeLastLetterInCurrentWord,
+  resetGame,
+  addWordToEnteredWords,
+  resetCurrentWord,
+} = appSlice.actions;

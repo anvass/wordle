@@ -1,17 +1,19 @@
 import Modal from './Modal';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { AiOutlineEnter } from 'react-icons/ai';
+import { Dispatch, SetStateAction } from 'react';
+import { ModalName } from '../types';
 
 function ModalContainer({
   modalName,
   setModalName,
   onReset,
+  onClose,
 }: {
   modalName: null | string;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-  setModalName: Function;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-  onReset: Function;
+  setModalName: Dispatch<SetStateAction<ModalName | null>>;
+  onReset: () => void;
+  onClose: () => void;
 }) {
   if (!modalName) {
     return null;
@@ -79,7 +81,7 @@ function ModalContainer({
         <div className="flex mt-4">
           <button
             onClick={() => {
-              onReset();
+              onClose();
             }}
             className="w-full p-3 rounded-md text-lg bg-blue-600 text-white uppercase hover:bg-blue-700 transition-colors cursor-pointer"
           >
