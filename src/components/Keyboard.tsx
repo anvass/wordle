@@ -2,6 +2,7 @@ import { GameState, MatchLetterResult } from '../types';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { AiOutlineEnter } from 'react-icons/ai';
 import { matchLetterInWord } from '../utils/matchLetterInWord';
+import { COLS_COUNT } from '../constants';
 
 interface KeyboardProps {
   gameState: GameState;
@@ -47,6 +48,8 @@ function Keyboard({
     gameState?.targetWord,
     gameState?.enteredWords
   );
+
+  const isFullWord = gameState.currentWord.length === COLS_COUNT;
 
   function addClass(letter: string): string {
     if (letterMatchDictionary[letter.toLowerCase()] === 'match-total') {
@@ -111,7 +114,9 @@ function Keyboard({
       </div>
       <div className="flex gap-1">
         <button
-          className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer"
+          className={`flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl  border border-neutral-300 cursor-pointer ${
+            isFullWord ? 'text-white bg-blue-600' : 'text-gray-800 bg-gray-100'
+          }`}
           onClick={onWordEnter}
         >
           <AiOutlineEnter />
