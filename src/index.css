@@ -20,3 +20,10 @@ h1 {
   max-width: 95%;
   margin: 0 auto;
 }
+
+/* test */
+/* @layer components {
+  .keyboard-default {
+    background-color: aqua!important;
+  }
+} */

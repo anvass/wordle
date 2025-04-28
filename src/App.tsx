@@ -1,54 +1,48 @@
 import { useState } from 'react';
 import Keyboard from './components/Keyboard';
 import Grid from './components/Grid';
-import { GameState, ModalName } from './types';
-import words from './dict.json';
+import { ModalName } from './types';
 import { COLS_COUNT, ROWS_COUNT } from './constants';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ModalContainer from './components/ModalContainer';
 import { useWindowSize } from 'react-use';
 import Confetti from 'react-confetti';
+import { useAppDispatch, useAppSelector } from './redux/store';
+import {
+  setCurrentWord,
+  removeLastLetterInCurrentWord,
+  resetGame,
+  addWordToEnteredWords,
+} from './redux/appSlice';
 
 function App() {
-  const [gameState, setGameState] = useState<GameState>({
-    enteredWords: [],
-    currentWord: '',
-    targetWord: words[Math.floor(Math.random() * words.length)],
-  });
-
-  const [modalName, setModalName] = useState<ModalName | null>('help');
+  const gameState = useAppSelector((store) => store.appSlice.gameState);
+  const dispatch = useAppDispatch();
 
   const { width, height } = useWindowSize();
   const [needConfetti, setNeedConfetti] = useState<boolean>(false);
+  const [modalName, setModalName] = useState<ModalName | null>('help');
 
   const handleLetterEnter = (key: string) => {
     if (gameState.currentWord.length < COLS_COUNT) {
-      setGameState((prevState) => ({
-        ...prevState,
-        currentWord: prevState.currentWord + key,
-      }));
+      dispatch(setCurrentWord(key));
     }
   };
 
   const handleLetterRemove = () => {
     if (gameState.currentWord.length > 0) {
-      setGameState((prevState) => ({
-        ...prevState,
-        currentWord: prevState.currentWord.slice(0, -1),
-      }));
+      dispatch(removeLastLetterInCurrentWord());
     }
   };
 
-  console.log(gameState);
-
   const handleResetGame = () => {
-    setGameState(() => ({
-      enteredWords: [],
-      currentWord: '',
-      targetWord: words[Math.floor(Math.random() * words.length)],
-    }));
+    dispatch(resetGame());
     setNeedConfetti(false);
+    setModalName(null);
+  };
+
+  const handleCloseModal = () => {
     setModalName(null);
   };
 
@@ -63,32 +57,24 @@ function App() {
       return;
     }
 
-    if (!words.includes(currentWord)) {
-      alert('В словаре нет такого слова. Попробуйте другое!');
-      setGameState((prevState) => ({
-        ...prevState,
-        currentWord: '',
-      }));
-      return;
-    }
+    // if (!words.includes(currentWord)) {
+    //   alert('В словаре нет такого слова. Попробуйте другое!');
+    //   setGameState((prevState) => ({
+    //     ...prevState,
+    //     currentWord: '',
+    //   }));
+    //   return;
+    // }
 
     if (currentWord === targetWord) {
-      setGameState((prevState) => ({
-        ...prevState,
-        enteredWords: [...prevState.enteredWords, currentWord],
-        currentWord: '',
-      }));
+      dispatch(addWordToEnteredWords(currentWord));
       setModalName('success');
       setNeedConfetti(true);
       return;
     }
 
     if (gameState.enteredWords.length < ROWS_COUNT - 1) {
-      setGameState((prevState) => ({
-        ...prevState,
-        enteredWords: [...prevState.enteredWords, currentWord],
-        currentWord: '',
-      }));
+      dispatch(addWordToEnteredWords(currentWord));
     } else {
       setModalName('failed');
       return;
@@ -112,6 +98,7 @@ function App() {
           modalName={modalName}
           setModalName={setModalName}
           onReset={handleResetGame}
+          onClose={handleCloseModal}
         />
         <Footer onHelpClick={handleHelpClick} />
         {needConfetti && <Confetti width={width} height={height} />}
