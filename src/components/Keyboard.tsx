@@ -44,6 +44,7 @@ function Keyboard({
   onLetterRemove,
   onWordEnter,
 }: KeyboardProps) {
+
   const letterMatchDictionary = calcLetter(
     gameState?.targetWord,
     gameState?.enteredWords
@@ -53,7 +54,7 @@ function Keyboard({
 
   function addClass(letter: string): string {
     if (letterMatchDictionary[letter.toLowerCase()] === 'match-total') {
-      return 'bg-green-400 text-white';
+      return 'bg-green-500 text-white';
     }
     if (letterMatchDictionary[letter.toLowerCase()] === 'match-partial') {
       return 'bg-yellow-400 text-white';
@@ -92,7 +93,7 @@ function Keyboard({
             key={index}
             className={`${addClass(
               key
-            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer`}
+            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
             onClick={() => onLetterEnter(key)}
           >
             {key}
@@ -105,7 +106,7 @@ function Keyboard({
             key={index}
             className={`${addClass(
               key
-            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer`}
+            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
             onClick={() => onLetterEnter(key)}
           >
             {key}
@@ -114,8 +115,8 @@ function Keyboard({
       </div>
       <div className="flex gap-1">
         <button
-          className={`flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl  border border-neutral-300 cursor-pointer ${
-            isFullWord ? 'text-white bg-blue-600' : 'text-gray-800 bg-gray-100'
+          className={`flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl cursor-pointer ${
+            isFullWord ? 'text-white bg-blue-600' : 'text-gray-800 bg-gray-200'
           }`}
           onClick={onWordEnter}
         >
@@ -126,14 +127,14 @@ function Keyboard({
             key={index}
             className={`${addClass(
               key
-            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer`}
+            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
             onClick={() => onLetterEnter(key)}
           >
             {key}
           </button>
         ))}
         <button
-          className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-100 border border-neutral-300 cursor-pointer"
+          className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer"
           onClick={onLetterRemove}
         >
           <FaDeleteLeft />
