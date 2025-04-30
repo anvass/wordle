@@ -79,12 +79,14 @@ function App() {
       return;
     }
 
-    if (gameState.enteredWords.length < ROWS_COUNT - 1) {
+    if (gameState.enteredWords.length <= ROWS_COUNT) {
       dispatch(addWordToEnteredWords(currentWord));
-    } else {
-      dispatch(finishedGame());
-      setModalName('failed');
-      return;
+
+      if (gameState.enteredWords.length + 1 === ROWS_COUNT) {
+        dispatch(finishedGame());
+        setModalName('failed');
+        return;
+      }
     }
   };
 
