@@ -26,7 +26,11 @@ function App() {
   const [modalName, setModalName] = useState<ModalName | null>('help');
 
   const handleLetterEnter = (key: string) => {
-    if (gameState.currentWord.length < COLS_COUNT) {
+    if (gameState.isFinished) {
+      setModalName('reset');
+    }
+
+    if (!gameState.isFinished && gameState.currentWord.length < COLS_COUNT) {
       dispatch(setCurrentWord(key));
     }
   };

@@ -125,6 +125,21 @@ function ModalContainer({
       </Modal>
     );
   }
+  if (modalName === 'reset') {
+    return (
+      <Modal onClose={() => setModalName(null)} title={'Начать заново'}>
+        <p>Попробуете снова?</p>
+        <div className="flex mt-4">
+          <button
+            onClick={() => onReset()}
+            className="w-full p-3 rounded-md text-lg bg-blue-600 text-white uppercase hover:bg-blue-700 transition-colors cursor-pointer"
+          >
+            Перезапустить
+          </button>
+        </div>
+      </Modal>
+    );
+  }
 }
 
 export default ModalContainer;
