@@ -1,10 +1,7 @@
 import { COLS_COUNT, ROWS_COUNT } from '../constants';
-import { GameState, MatchLetterResult } from '../types';
+import { useAppSelector } from '../redux/store';
+import { MatchLetterResult } from '../types';
 import { matchLetterInWord } from '../utils/matchLetterInWord';
-
-interface GridProps {
-  gameState: GameState;
-}
 
 const letterClassNames: Record<MatchLetterResult, string> = {
   'match-total': 'bg-green-500 text-white border-transparent',
@@ -22,8 +19,11 @@ function createLetterClassName(
   return letterClassNames[match];
 }
 
-function Grid({ gameState }: GridProps) {
-  const { enteredWords, currentWord, targetWord } = gameState;
+function Grid() {
+  const gameState = useAppSelector((store) => store.appSlice.gameState);
+  const enteredWords = gameState.enteredWords;
+  const currentWord = gameState.currentWord;
+  const targetWord = gameState.targetWord;
 
   const cols = Array.from({ length: COLS_COUNT });
   const emptyRows = Array.from({

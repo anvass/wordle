@@ -1,11 +1,11 @@
-import { GameState, MatchLetterResult } from '../types';
+import { MatchLetterResult } from '../types';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { AiOutlineEnter } from 'react-icons/ai';
 import { matchLetterInWord } from '../utils/matchLetterInWord';
 import { COLS_COUNT } from '../constants';
+import { useAppSelector } from '../redux/store';
 
 interface KeyboardProps {
-  gameState: GameState;
   onLetterEnter: (key: string) => void;
   onLetterRemove: () => void;
   onWordEnter: () => void;
@@ -39,14 +39,15 @@ function calcLetter(targetWord: string, enteredWords: string[]) {
 }
 
 function Keyboard({
-  gameState,
   onLetterEnter,
   onLetterRemove,
   onWordEnter,
 }: KeyboardProps) {
+  const gameState = useAppSelector((store) => store.appSlice.gameState);
+
   const letterMatchDictionary = calcLetter(
-    gameState?.targetWord,
-    gameState?.enteredWords
+    gameState.targetWord,
+    gameState.enteredWords
   );
 
   const isFullWord = gameState.currentWord.length === COLS_COUNT;

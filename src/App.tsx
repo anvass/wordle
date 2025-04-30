@@ -87,9 +87,8 @@ function App() {
     <>
       <div className="flex flex-col min-h-screen">
         <Header onHelpClick={handleHelpClick} />
-        <Grid gameState={gameState} />
+        <Grid />
         <Keyboard
-          gameState={gameState}
           onLetterEnter={handleLetterEnter}
           onLetterRemove={handleLetterRemove}
           onWordEnter={handleWordEnter}
@@ -101,7 +100,9 @@ function App() {
           onClose={handleCloseModal}
         />
         <Footer onHelpClick={handleHelpClick} />
-        {needConfetti && <Confetti width={width} height={height} recycle={false} />}
+        {needConfetti && (
+          <Confetti width={width} height={height} recycle={false} />
+        )}
       </div>
     </>
   );
