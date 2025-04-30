@@ -14,6 +14,7 @@ import {
   removeLastLetterInCurrentWord,
   resetGame,
   addWordToEnteredWords,
+  finishedGame,
 } from './redux/appSlice';
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
 
     if (currentWord === targetWord) {
       dispatch(addWordToEnteredWords(currentWord));
+      dispatch(finishedGame());
       setModalName('success');
       setNeedConfetti(true);
       return;
@@ -76,6 +78,7 @@ function App() {
     if (gameState.enteredWords.length < ROWS_COUNT - 1) {
       dispatch(addWordToEnteredWords(currentWord));
     } else {
+      dispatch(finishedGame());
       setModalName('failed');
       return;
     }
@@ -86,7 +89,7 @@ function App() {
   return (
     <>
       <div className="flex flex-col min-h-screen">
-        <Header onHelpClick={handleHelpClick} />
+        <Header onHelpClick={handleHelpClick} onReset={handleResetGame} />
         <Grid />
         <Keyboard
           onLetterEnter={handleLetterEnter}

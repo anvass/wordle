@@ -8,6 +8,7 @@ export type InitialState = {
 
 const initialState: InitialState = {
   gameState: {
+    isFinished: false,
     enteredWords: [],
     currentWord: '',
     targetWord: words[Math.floor(Math.random() * words.length)],
@@ -27,6 +28,7 @@ const appSlice = createSlice({
     },
     resetGame: (state) => {
       state.gameState = {
+        isFinished: false,
         enteredWords: [],
         currentWord: '',
         targetWord: words[Math.floor(Math.random() * words.length)],
@@ -35,6 +37,9 @@ const appSlice = createSlice({
     addWordToEnteredWords: (state, action: PayloadAction<string>) => {
       state.gameState.enteredWords.push(action.payload);
       state.gameState.currentWord = '';
+    },
+    finishedGame: (state) => {
+      state.gameState.isFinished = true;
     },
   },
 });
@@ -45,4 +50,5 @@ export const {
   removeLastLetterInCurrentWord,
   resetGame,
   addWordToEnteredWords,
+  finishedGame,
 } = appSlice.actions;

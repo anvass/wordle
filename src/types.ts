@@ -1,4 +1,5 @@
 export interface GameState {
+  isFinished: boolean;
   enteredWords: string[];
   currentWord: string;
   targetWord: string;
