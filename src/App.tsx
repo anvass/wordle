@@ -101,7 +101,7 @@ function App() {
           onClose={handleCloseModal}
         />
         <Footer onHelpClick={handleHelpClick} />
-        {needConfetti && <Confetti width={width} height={height} />}
+        {needConfetti && <Confetti width={width} height={height} recycle={false} />}
       </div>
     </>
   );
