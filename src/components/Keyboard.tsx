@@ -2,15 +2,9 @@ import { MatchLetterResult } from '../types';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { AiOutlineEnter } from 'react-icons/ai';
 import { matchLetterInWord } from '../utils/matchLetterInWord';
-import { COLS_COUNT, ROWS_COUNT } from '../constants';
+import { COLS_COUNT } from '../constants';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import {
-  addWordToEnteredWords,
-  finishedGame,
-  removeLastLetterInCurrentWord,
-  setCurrentWord,
-  setModalName,
-} from '../redux/appSlice';
+import { enterLetter, enterWord, removeLetter } from '../redux/appSlice';
 
 function calcLetter(targetWord: string, enteredWords: string[]) {
   const d: Record<string, MatchLetterResult> = {};
@@ -44,48 +38,15 @@ function Keyboard() {
   const dispatch = useAppDispatch();
 
   const handleLetterRemove = () => {
-    if (gameState.currentWord.length > 0) {
-      dispatch(removeLastLetterInCurrentWord());
-    }
+    dispatch(removeLetter());
   };
 
   const handleLetterEnter = (key: string) => {
-    if (gameState.isFinished) {
-      dispatch(setModalName('reset'));
-    }
-
-    if (!gameState.isFinished && gameState.currentWord.length < COLS_COUNT) {
-      dispatch(setCurrentWord(key));
-    }
+    dispatch(enterLetter(key));
   };
 
   const handleWordEnter = () => {
-    const currentWord = gameState.currentWord.toLowerCase();
-    const targetWord = gameState.targetWord.toLowerCase();
-
-    if (
-      currentWord.length !== COLS_COUNT ||
-      gameState.enteredWords.length === ROWS_COUNT
-    ) {
-      return;
-    }
-
-    if (currentWord === targetWord) {
-      dispatch(addWordToEnteredWords(currentWord));
-      dispatch(finishedGame());
-      dispatch(setModalName('success'));
-      return;
-    }
-
-    if (gameState.enteredWords.length <= ROWS_COUNT) {
-      dispatch(addWordToEnteredWords(currentWord));
-
-      if (gameState.enteredWords.length + 1 === ROWS_COUNT) {
-        dispatch(finishedGame());
-        dispatch(setModalName('failed'));
-        return;
-      }
-    }
+    dispatch(enterWord());
   };
 
   const letterMatchDictionary = calcLetter(
