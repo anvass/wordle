@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GameState } from '../types';
+import { GameState, ModalName } from '../types';
 import words from '../dict.json';
 
 export type InitialState = {
   gameState: GameState;
+  modalName: ModalName | null;
 };
 
 const initialState: InitialState = {
@@ -13,6 +14,7 @@ const initialState: InitialState = {
     currentWord: '',
     targetWord: words[Math.floor(Math.random() * words.length)],
   },
+  modalName: 'help',
 };
 
 const appSlice = createSlice({
@@ -33,6 +35,7 @@ const appSlice = createSlice({
         currentWord: '',
         targetWord: words[Math.floor(Math.random() * words.length)],
       };
+      state.modalName = null;
     },
     addWordToEnteredWords: (state, action: PayloadAction<string>) => {
       state.gameState.enteredWords.push(action.payload);
@@ -40,6 +43,9 @@ const appSlice = createSlice({
     },
     finishedGame: (state) => {
       state.gameState.isFinished = true;
+    },
+    setModalName: (state, action: PayloadAction<ModalName | null>) => {
+      state.modalName = action.payload;
     },
   },
 });
@@ -51,4 +57,5 @@ export const {
   resetGame,
   addWordToEnteredWords,
   finishedGame,
+  setModalName,
 } = appSlice.actions;

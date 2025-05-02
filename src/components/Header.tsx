@@ -1,15 +1,19 @@
 import { BsQuestionCircleFill } from 'react-icons/bs';
-import { useAppSelector } from '../redux/store';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import { GrPowerReset } from 'react-icons/gr';
+import { resetGame, setModalName } from '../redux/appSlice';
 
-function Header({
-  onHelpClick,
-  onReset,
-}: {
-  onHelpClick: () => void;
-  onReset: () => void;
-}) {
+function Header() {
   const gameState = useAppSelector((store) => store.appSlice.gameState);
+  const dispatch = useAppDispatch();
+
+  const handleHelpClick = () => {
+    dispatch(setModalName('help'));
+  };
+
+  const handleResetGame = () => {
+    dispatch(resetGame());
+  };
 
   return (
     <header>
@@ -22,14 +26,14 @@ function Header({
           {gameState.isFinished && (
             <button
               className="text-gray-500 text-[30px] cursor-pointer hover:text-black"
-              onClick={onReset}
+              onClick={handleResetGame}
             >
               <GrPowerReset />
             </button>
           )}
           <button
             className="text-gray-500 text-[30px] cursor-pointer hover:text-black"
-            onClick={onHelpClick}
+            onClick={handleHelpClick}
           >
             <BsQuestionCircleFill />
           </button>

@@ -2,14 +2,15 @@ import { MatchLetterResult } from '../types';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { AiOutlineEnter } from 'react-icons/ai';
 import { matchLetterInWord } from '../utils/matchLetterInWord';
-import { COLS_COUNT } from '../constants';
-import { useAppSelector } from '../redux/store';
-
-interface KeyboardProps {
-  onLetterEnter: (key: string) => void;
-  onLetterRemove: () => void;
-  onWordEnter: () => void;
-}
+import { COLS_COUNT, ROWS_COUNT } from '../constants';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import {
+  addWordToEnteredWords,
+  finishedGame,
+  removeLastLetterInCurrentWord,
+  setCurrentWord,
+  setModalName,
+} from '../redux/appSlice';
 
 function calcLetter(targetWord: string, enteredWords: string[]) {
   const d: Record<string, MatchLetterResult> = {};
@@ -38,12 +39,54 @@ function calcLetter(targetWord: string, enteredWords: string[]) {
   return d;
 }
 
-function Keyboard({
-  onLetterEnter,
-  onLetterRemove,
-  onWordEnter,
-}: KeyboardProps) {
+function Keyboard() {
   const gameState = useAppSelector((store) => store.appSlice.gameState);
+  const dispatch = useAppDispatch();
+
+  const handleLetterRemove = () => {
+    if (gameState.currentWord.length > 0) {
+      dispatch(removeLastLetterInCurrentWord());
+    }
+  };
+
+  const handleLetterEnter = (key: string) => {
+    if (gameState.isFinished) {
+      dispatch(setModalName('reset'));
+    }
+
+    if (!gameState.isFinished && gameState.currentWord.length < COLS_COUNT) {
+      dispatch(setCurrentWord(key));
+    }
+  };
+
+  const handleWordEnter = () => {
+    const currentWord = gameState.currentWord.toLowerCase();
+    const targetWord = gameState.targetWord.toLowerCase();
+
+    if (
+      currentWord.length !== COLS_COUNT ||
+      gameState.enteredWords.length === ROWS_COUNT
+    ) {
+      return;
+    }
+
+    if (currentWord === targetWord) {
+      dispatch(addWordToEnteredWords(currentWord));
+      dispatch(finishedGame());
+      dispatch(setModalName('success'));
+      return;
+    }
+
+    if (gameState.enteredWords.length <= ROWS_COUNT) {
+      dispatch(addWordToEnteredWords(currentWord));
+
+      if (gameState.enteredWords.length + 1 === ROWS_COUNT) {
+        dispatch(finishedGame());
+        dispatch(setModalName('failed'));
+        return;
+      }
+    }
+  };
 
   const letterMatchDictionary = calcLetter(
     gameState.targetWord,
@@ -94,7 +137,7 @@ function Keyboard({
             className={`${addClass(
               key
             )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
-            onClick={() => onLetterEnter(key)}
+            onClick={() => handleLetterEnter(key)}
           >
             {key}
           </button>
@@ -107,7 +150,7 @@ function Keyboard({
             className={`${addClass(
               key
             )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
-            onClick={() => onLetterEnter(key)}
+            onClick={() => handleLetterEnter(key)}
           >
             {key}
           </button>
@@ -118,7 +161,7 @@ function Keyboard({
           className={`flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl cursor-pointer ${
             isFullWord ? 'text-white bg-blue-600' : 'text-gray-800 bg-gray-200'
           }`}
-          onClick={onWordEnter}
+          onClick={handleWordEnter}
         >
           <AiOutlineEnter />
         </button>
@@ -128,14 +171,14 @@ function Keyboard({
             className={`${addClass(
               key
             )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
-            onClick={() => onLetterEnter(key)}
+            onClick={() => handleLetterEnter(key)}
           >
             {key}
           </button>
         ))}
         <button
           className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer"
-          onClick={onLetterRemove}
+          onClick={handleLetterRemove}
         >
           <FaDeleteLeft />
         </button>

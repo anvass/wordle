@@ -1,26 +1,28 @@
 import Modal from './Modal';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { AiOutlineEnter } from 'react-icons/ai';
-import { Dispatch, SetStateAction } from 'react';
-import { ModalName } from '../types';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { resetGame, setModalName } from '../redux/appSlice';
 
-function ModalContainer({
-  modalName,
-  setModalName,
-  onReset,
-  onClose,
-}: {
-  modalName: null | string;
-  setModalName: Dispatch<SetStateAction<ModalName | null>>;
-  onReset: () => void;
-  onClose: () => void;
-}) {
+function ModalContainer() {
+  const modalName = useAppSelector((store) => store.appSlice.modalName);
+  const dispatch = useAppDispatch();
+
+  const handleCloseModal = () => {
+    dispatch(setModalName(null));
+  };
+
+  const handleResetGame = () => {
+    dispatch(resetGame());
+  };
+
   if (!modalName) {
     return null;
   }
+
   if (modalName === 'help') {
     return (
-      <Modal onClose={() => setModalName(null)} title={'Помощь'}>
+      <Modal onClose={handleCloseModal} title={'Помощь'}>
         <div className="text-left flex flex-col gap-4">
           <div>
             <p>
@@ -80,9 +82,7 @@ function ModalContainer({
         </div>
         <div className="flex mt-4">
           <button
-            onClick={() => {
-              onClose();
-            }}
+            onClick={handleCloseModal}
             className="w-full p-3 rounded-md text-lg bg-blue-600 text-white uppercase hover:bg-blue-700 transition-colors cursor-pointer"
           >
             Все понятно
@@ -93,14 +93,12 @@ function ModalContainer({
   }
   if (modalName === 'success') {
     return (
-      <Modal onClose={() => setModalName(null)} title={'Победа!'}>
+      <Modal onClose={handleCloseModal} title={'Победа!'}>
         <p>Поздравляем!</p>
         <p>Вы отгадали слово!</p>
         <div className="flex mt-4">
           <button
-            onClick={() => {
-              onReset();
-            }}
+            onClick={handleResetGame}
             className="w-full p-3 rounded-md text-lg bg-blue-600 text-white uppercase hover:bg-blue-700 transition-colors cursor-pointer"
           >
             Начать заново
@@ -111,12 +109,12 @@ function ModalContainer({
   }
   if (modalName === 'failed') {
     return (
-      <Modal onClose={() => setModalName(null)} title={'Неудача'}>
+      <Modal onClose={handleCloseModal} title={'Неудача'}>
         <p>К сожалению, вы не отгадали!</p>
         <p>Попробуете снова?</p>
         <div className="flex mt-4">
           <button
-            onClick={() => onReset()}
+            onClick={handleResetGame}
             className="w-full p-3 rounded-md text-lg bg-blue-600 text-white uppercase hover:bg-blue-700 transition-colors cursor-pointer"
           >
             Начать заново
@@ -127,11 +125,11 @@ function ModalContainer({
   }
   if (modalName === 'reset') {
     return (
-      <Modal onClose={() => setModalName(null)} title={'Начать заново'}>
+      <Modal onClose={handleCloseModal} title={'Начать заново'}>
         <p>Попробуете снова?</p>
         <div className="flex mt-4">
           <button
-            onClick={() => onReset()}
+            onClick={handleResetGame}
             className="w-full p-3 rounded-md text-lg bg-blue-600 text-white uppercase hover:bg-blue-700 transition-colors cursor-pointer"
           >
             Перезапустить

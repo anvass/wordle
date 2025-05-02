@@ -1,6 +1,14 @@
 import { AiOutlineCopyrightCircle } from 'react-icons/ai';
+import { useAppDispatch } from '../redux/store';
+import { setModalName } from '../redux/appSlice';
 
-function Footer({ onHelpClick }: { onHelpClick: () => void }) {
+function Footer() {
+  const dispatch = useAppDispatch();
+
+  const onHelpClick = () => {
+    dispatch(setModalName('help'));
+  };
+
   return (
     <footer className="flex flex-col justify-end grow">
       <div className="container flex flex-col justify-center items-center border-t py-5">
