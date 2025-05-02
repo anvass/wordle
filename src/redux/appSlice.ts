@@ -77,7 +77,7 @@ const appSlice = createSlice({
         state.gameState.enteredWords.push(currentWord);
         state.gameState.currentWord = '';
 
-        if (state.gameState.enteredWords.length + 1 === ROWS_COUNT) {
+        if (state.gameState.enteredWords.length === ROWS_COUNT) {
           state.gameState.isFinished = true;
           state.modalName = 'failed';
           return;
