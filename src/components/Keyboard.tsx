@@ -10,6 +10,7 @@ import {
   removeLetter,
   setError,
 } from '../redux/appSlice';
+import words from '../dict.json';
 
 function calcLetter(targetWord: string, enteredWords: string[]) {
   const d: Record<string, MatchLetterResult> = {};
@@ -51,7 +52,10 @@ function Keyboard() {
   };
 
   const handleWordEnter = () => {
-    if (gameState.enteredWords.includes(gameState.currentWord.toLowerCase())) {
+    if (
+      gameState.enteredWords.includes(gameState.currentWord) ||
+      !words.includes(gameState.currentWord)
+    ) {
       dispatch(setError());
       return;
     } else {
