@@ -17,8 +17,33 @@ h1 {
 
 .container {
   width: 100%;
-  max-width: 95%;
+  max-width: 700px;
   margin: 0 auto;
+  padding: 10px;
+}
+
+.wordСheckingError {
+  filter: invert(21%) sepia(100%) saturate(7414%) hue-rotate(359deg)
+    brightness(94%) contrast(117%);
+  animation-name: shake;
+  animation-duration: 0.2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-1vh);
+  }
+  75% {
+    transform: translateX(1vh);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* test */

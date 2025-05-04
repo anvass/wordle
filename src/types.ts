@@ -3,6 +3,7 @@ export interface GameState {
   enteredWords: string[];
   currentWord: string;
   targetWord: string;
+  isError: boolean;
 }
 
 export interface LetterState {

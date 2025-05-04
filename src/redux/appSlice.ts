@@ -14,6 +14,7 @@ const initialState: InitialState = {
     enteredWords: [],
     currentWord: '',
     targetWord: words[Math.floor(Math.random() * words.length)],
+    isError: false,
   },
   modalName: 'help',
 };
@@ -27,12 +28,14 @@ const appSlice = createSlice({
         state.gameState.currentWord = state.gameState.currentWord.slice(0, -1);
       }
     },
+
     resetGame: (state) => {
       state.gameState = {
         isFinished: false,
         enteredWords: [],
         currentWord: '',
         targetWord: words[Math.floor(Math.random() * words.length)],
+        isError: false,
       };
       state.modalName = null;
     },
@@ -40,6 +43,7 @@ const appSlice = createSlice({
     setModalName: (state, action: PayloadAction<ModalName | null>) => {
       state.modalName = action.payload;
     },
+
     enterLetter: (state, action: PayloadAction<string>) => {
       if (state.gameState.isFinished) {
         state.modalName = 'reset';
