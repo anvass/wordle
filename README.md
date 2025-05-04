@@ -3,7 +3,6 @@
 ![build](https://github.com/anvass/wordle/actions/workflows/build.yml/badge.svg)
 
 
-## Описание
 Вордл - простая и увлекательная головоломка, в которой нужно угадать слово из 5 букв за 6 попыток.
 
 ![image](./docs/assets/video.gif)
