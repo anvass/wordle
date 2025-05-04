@@ -4,7 +4,12 @@ import { AiOutlineEnter } from 'react-icons/ai';
 import { matchLetterInWord } from '../utils/matchLetterInWord';
 import { COLS_COUNT } from '../constants';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { enterLetter, enterWord, removeLetter } from '../redux/appSlice';
+import {
+  enterLetter,
+  enterWord,
+  removeLetter,
+  setError,
+} from '../redux/appSlice';
 
 function calcLetter(targetWord: string, enteredWords: string[]) {
   const d: Record<string, MatchLetterResult> = {};
@@ -46,7 +51,12 @@ function Keyboard() {
   };
 
   const handleWordEnter = () => {
+    if (gameState.enteredWords.includes(gameState.currentWord.toLowerCase())) {
+      dispatch(setError());
+      return;
+    } else {
       dispatch(enterWord());
+    }
   };
 
   const letterMatchDictionary = calcLetter(

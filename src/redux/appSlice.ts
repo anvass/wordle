@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GameState, ModalName } from '../types';
 import words from '../dict.json';
 import { COLS_COUNT, ROWS_COUNT } from '../constants';
@@ -18,6 +18,15 @@ const initialState: InitialState = {
   },
   modalName: 'help',
 };
+
+export const setError = createAsyncThunk(
+  'app/setError',
+  async (_, { dispatch }) => {
+    dispatch(appSlice.actions.setErrorState(true));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    dispatch(appSlice.actions.setErrorState(false));
+  }
+);
 
 const appSlice = createSlice({
   name: 'appSlice',
@@ -54,13 +63,17 @@ const appSlice = createSlice({
         state.gameState.currentWord.length < COLS_COUNT
       ) {
         state.gameState.currentWord =
-          state.gameState.currentWord + action.payload;
+          state.gameState.currentWord + action.payload.toLowerCase();
       }
     },
 
+    setErrorState: (state, action: PayloadAction<boolean>) => {
+      state.gameState.isError = action.payload;
+    },
+
     enterWord: (state) => {
-      const currentWord = state.gameState.currentWord.toLowerCase();
-      const targetWord = state.gameState.targetWord.toLowerCase();
+      const currentWord = state.gameState.currentWord;
+      const targetWord = state.gameState.targetWord;
 
       if (
         currentWord.length !== COLS_COUNT ||
@@ -68,6 +81,14 @@ const appSlice = createSlice({
       ) {
         return;
       }
+
+      // if (
+      //   state.gameState.enteredWords.includes(currentWord) ||
+      //   !words.includes(currentWord)
+      // ) {
+      //   console.log('test');
+      //   return;
+      // }
 
       if (currentWord === targetWord) {
         state.gameState.enteredWords.push(currentWord);
@@ -89,6 +110,12 @@ const appSlice = createSlice({
       }
     },
   },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(setError.pending, (state) => {})
+  //     .addCase(setError.fulfilled, (state) => {})
+  //     .addCase(setError.rejected, (state, action) => {});
+  // },
 });
 
 export default appSlice.reducer;
