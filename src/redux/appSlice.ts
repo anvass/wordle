@@ -23,7 +23,7 @@ export const setError = createAsyncThunk(
   'app/setError',
   async (_, { dispatch }) => {
     dispatch(appSlice.actions.setErrorState(true));
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 400));
     dispatch(appSlice.actions.setErrorState(false));
   }
 );
