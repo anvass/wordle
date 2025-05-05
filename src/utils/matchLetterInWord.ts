@@ -1,4 +1,4 @@
-import { MatchLetterResult } from "../types";
+import { MatchLetterResult } from '../types';
 
 export function matchLetterInWord(
   letterValue: string,

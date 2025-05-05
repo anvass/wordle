@@ -24,7 +24,7 @@ function Grid() {
   const enteredWords = gameState.enteredWords;
   const currentWord = gameState.currentWord;
   const targetWord = gameState.targetWord;
-  
+
   const cols = Array.from({ length: COLS_COUNT });
   const emptyRows = Array.from({
     length: ROWS_COUNT - enteredWords.length - 1,
