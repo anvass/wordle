@@ -39,7 +39,7 @@ function Grid() {
         >
           {enteredWord.split('').map((letter, index) => (
             <div
-              className={`flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-semibold ${createLetterClassName(
+              className={`flex-1 border-1 sm:border-2 p-1 sm:p-2 text-center text-2xl sm:text-4xl uppercase font-semibold ${createLetterClassName(
                 letter,
                 index,
                 targetWord
@@ -54,14 +54,14 @@ function Grid() {
 
       {enteredWords.length + 1 + emptyRows.length <= 6 && (
         <div
-          className={`flex w-full max-w-[95%] sm:max-w-lg gap-1 ${
+          className={`flex w-full sm:max-w-lg gap-1 ${
             gameState.isError ? 'wordСheckingError' : ''
           }`}
           key="current-word"
         >
           {cols.map((_, index) => (
             <div
-              className={`flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-bold ${
+              className={`flex-1 border-1 sm:border-2 p-1 sm:p-2 text-center text-3xl sm:text-4xl uppercase font-bold ${
                 currentWord[index] ? ' border-black-300' : 'border-neutral-300'
               }`}
               key={index}
@@ -79,7 +79,7 @@ function Grid() {
         >
           {cols.map((_, index) => (
             <div
-              className="flex-1 border-2 p-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300"
+              className="flex-1 border-1 sm:border-2 p-1 sm:p-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300"
               key={index}
             >
               <p>&nbsp;</p>
