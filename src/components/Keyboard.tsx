@@ -104,14 +104,14 @@ function Keyboard() {
   const KEYS_3RD_ROW = ['Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю'];
 
   return (
-    <div className="container flex flex-col w-full mx-auto gap-1  py-3 md:py-5">
+    <div className="container flex flex-col w-full mx-auto gap-1 py-3 md:py-5">
       <div className="flex gap-1">
         {KEYS_1ST_ROW.map((key: string, index: number) => (
           <button
             key={index}
             className={`${addClass(
               key
-            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
+            )} flex-1 flex justify-center items-center p-1 sm:p-2 box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
             onClick={() => handleLetterEnter(key)}
           >
             {key}
@@ -124,7 +124,7 @@ function Keyboard() {
             key={index}
             className={`${addClass(
               key
-            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
+            )} flex-1 flex justify-center items-center p-1 sm:p-2 box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
             onClick={() => handleLetterEnter(key)}
           >
             {key}
@@ -133,7 +133,7 @@ function Keyboard() {
       </div>
       <div className="flex gap-1">
         <button
-          className={`flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl cursor-pointer ${
+          className={`flex-1 flex justify-center items-center p-1 sm:p-2 box-border uppercase font-semibold text-lg sm:text-xl cursor-pointer ${
             isFullWord ? 'text-white bg-blue-600' : 'text-gray-800 bg-gray-200'
           }`}
           onClick={handleWordEnter}
@@ -145,14 +145,14 @@ function Keyboard() {
             key={index}
             className={`${addClass(
               key
-            )} flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
+            )} flex-1 flex justify-center items-center p-1 sm:p-2 box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer`}
             onClick={() => handleLetterEnter(key)}
           >
             {key}
           </button>
         ))}
         <button
-          className="flex-1 flex justify-center items-center py-2 sm:px-px box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer"
+          className="flex-1 flex justify-center items-center p-1 sm:p-2 box-border uppercase font-semibold text-lg sm:text-xl text-gray-800 bg-gray-200 cursor-pointer"
           onClick={handleLetterRemove}
         >
           <FaDeleteLeft />
