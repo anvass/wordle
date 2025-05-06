@@ -17,7 +17,7 @@ function Header() {
 
   return (
     <header>
-      <div className="container border-b border-neutral-300 flex justify-between items-center py-3 md:py-5">
+      <div className="border-b border-neutral-300 flex justify-between items-center py-3 md:py-5">
         <div>
           <h1 className="text-center text-3xl md:text-4xl uppercase">Вордл</h1>
         </div>

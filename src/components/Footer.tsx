@@ -12,7 +12,7 @@ function Footer() {
 
   return screenWidth > 481 ? (
     <footer className="flex flex-col justify-end grow">
-      <div className="container border-t border-neutral-300 flex w-full flex-col justify-center items-center py-5">
+      <div className="border-t border-neutral-300 flex w-full flex-col justify-center items-center py-5">
         <div>
           <p className="flex items-center">
             <AiOutlineCopyrightCircle />{' '}

@@ -8,7 +8,7 @@ import Confetti from './components/Confetti';
 function App() {
   return (
     <>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen max-w-[700px] m-auto px-2">
         <Header />
         <Grid />
         <Keyboard />
