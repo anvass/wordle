@@ -11,7 +11,7 @@ function Footer() {
   }, []);
 
   return screenWidth > 481 ? (
-    <footer className="flex flex-col justify-end grow">
+    <footer className="flex flex-col justify-end grow mt-8">
       <div className="border-t border-neutral-300 flex w-full flex-col justify-center items-center py-5">
         <div>
           <p className="flex items-center">
