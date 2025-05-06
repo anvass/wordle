@@ -31,62 +31,66 @@ function Grid() {
   });
 
   return (
-    <div className="container flex flex-col items-center w-full gap-1">
-      {enteredWords.map((enteredWord, wordIndex) => (
-        <div
-          className="flex w-full sm:max-w-lg gap-1"
-          key={`entered-word-${wordIndex}`}
-        >
-          {enteredWord.split('').map((letter, index) => (
-            <div
-              className={`flex-1 border-1 sm:border-2 p-1 sm:p-2 text-center text-2xl sm:text-4xl uppercase font-semibold ${createLetterClassName(
-                letter,
-                index,
-                targetWord
-              )}`}
-              key={index}
-            >
-              <p>{letter}</p>
-            </div>
-          ))}
-        </div>
-      ))}
+    <div className="game-grid">
+      <div className="flex flex-col items-center w-full gap-1 text-center py-8">
+        {enteredWords.map((enteredWord, wordIndex) => (
+          <div
+            className="flex justify-center w-full sm:max-w-lg gap-1"
+            key={`entered-word-${wordIndex}`}
+          >
+            {enteredWord.split('').map((letter, index) => (
+              <div
+                className={`w-full max-w-[70px] border-2 p-1 sm:p-2 text-4xl sm:text-5xl uppercase shadow-sm rounded-sm text-shadow-sm font-medium ${createLetterClassName(
+                  letter,
+                  index,
+                  targetWord
+                )}`}
+                key={index}
+              >
+                <p>{letter}</p>
+              </div>
+            ))}
+          </div>
+        ))}
 
-      {enteredWords.length + 1 + emptyRows.length <= 6 && (
-        <div
-          className={`flex w-full sm:max-w-lg gap-1 ${
-            gameState.isError ? 'wordСheckingError' : ''
-          }`}
-          key="current-word"
-        >
-          {cols.map((_, index) => (
-            <div
-              className={`flex-1 border-1 sm:border-2 p-1 sm:p-2 text-center text-3xl sm:text-4xl uppercase font-bold ${
-                currentWord[index] ? ' border-black-300' : 'border-neutral-300'
-              }`}
-              key={index}
-            >
-              <p>{currentWord[index] || '\u00A0'}</p>
-            </div>
-          ))}
-        </div>
-      )}
+        {enteredWords.length + 1 + emptyRows.length <= 6 && (
+          <div
+            className={`flex justify-center w-full sm:max-w-lg gap-1 ${
+              gameState.isError ? 'wordСheckingError' : ''
+            }`}
+            key="current-word"
+          >
+            {cols.map((_, index) => (
+              <div
+                className={`w-full max-w-[70px] border-2 p-1 sm:p-2 text-4xl sm:text-5xl shadow-sm rounded-sm text-shadow-sm uppercase font-medium ${
+                  currentWord[index]
+                    ? ' border-black-300'
+                    : 'border-neutral-300'
+                }`}
+                key={index}
+              >
+                <p>{currentWord[index] || '\u00A0'}</p>
+              </div>
+            ))}
+          </div>
+        )}
 
-      {emptyRows.map((_, emptyIndex) => (
-        <div
-          className="flex w-full sm:max-w-lg gap-1"
-          key={`empty-word-${emptyIndex}`}
-        >
-          {cols.map((_, index) => (
-            <div
-              className="flex-1 border-1 sm:border-2 p-1 sm:p-2 text-center text-3xl sm:text-4xl uppercase font-bold border-neutral-300"
-              key={index}
-            >
-              <p>&nbsp;</p>
-            </div>
-          ))}
-        </div>
-      ))}
+        {emptyRows.map((_, emptyIndex) => (
+          <div
+            className="flex justify-center w-full sm:max-w-lg gap-1"
+            key={`empty-word-${emptyIndex}`}
+          >
+            {cols.map((_, index) => (
+              <div
+                className="w-full max-w-[70px] border-2 p-1 sm:p-2 text-4xl sm:text-5xl shadow-sm rounded-sm text-shadow-sm uppercase font-medium border-neutral-300"
+                key={index}
+              >
+                <p>&nbsp;</p>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
