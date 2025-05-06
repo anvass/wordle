@@ -40,7 +40,7 @@ function Grid() {
           >
             {enteredWord.split('').map((letter, index) => (
               <div
-                className={`w-full max-w-[70px] border-2 p-1 sm:p-2 text-3xl sm:text-5xl uppercase shadow-sm rounded-sm text-shadow-sm font-medium ${createLetterClassName(
+                className={`w-full max-w-[70px] border-2 p-1 sm:p-2 text-3xl sm:text-4xl uppercase shadow-sm rounded-sm text-shadow-sm font-medium ${createLetterClassName(
                   letter,
                   index,
                   targetWord
@@ -62,7 +62,7 @@ function Grid() {
           >
             {cols.map((_, index) => (
               <div
-                className={`w-full max-w-[70px] border-2 p-1 sm:p-2 text-3xl sm:text-5xl shadow-sm rounded-sm text-shadow-sm uppercase font-medium ${
+                className={`w-full max-w-[70px] border-2 p-1 sm:p-2 text-3xl sm:text-4xl shadow-sm rounded-sm text-shadow-sm uppercase font-medium ${
                   currentWord[index]
                     ? ' border-black-300'
                     : 'border-neutral-300'
