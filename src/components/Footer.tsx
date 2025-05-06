@@ -1,11 +1,7 @@
 import { AiOutlineCopyrightCircle } from 'react-icons/ai';
-import { useAppDispatch } from '../redux/store';
-import { setModalName } from '../redux/appSlice';
 import { useEffect, useState } from 'react';
 
 function Footer() {
-  const dispatch = useAppDispatch();
-
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -14,28 +10,14 @@ function Footer() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const onHelpClick = () => {
-    dispatch(setModalName('help'));
-  };
-
   return screenWidth > 481 ? (
     <footer className="flex flex-col justify-end grow">
-      <div className="border-t">
-        <div className="container flex w-full flex-col justify-center items-center py-5">
-          <div className="mb-5">
-            <button
-              className="underline cursor-pointer hover:no-underline"
-              onClick={onHelpClick}
-            >
-              Правила
-            </button>
-          </div>
-          <div>
-            <p className="flex items-center">
-              <AiOutlineCopyrightCircle />
-              {`${new Date().getFullYear()} Все права защищены.`}
-            </p>
-          </div>
+      <div className="container border-t border-neutral-300 flex w-full flex-col justify-center items-center py-5">
+        <div>
+          <p className="flex items-center">
+            <AiOutlineCopyrightCircle />{' '}
+            <span className="pl-1">{`${new Date().getFullYear()}`}</span>
+          </p>
         </div>
       </div>
     </footer>
